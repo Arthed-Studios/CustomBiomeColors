@@ -1,0 +1,78 @@
+name: CustomBiomeColors
+version: '1.0.0'
+main: me.arthed.custombiomecolors.CustomBiomeColors
+api-version: 1.13
+authors: [ Arthed ]
+description: Change the color of grass, leaves, water and the sky in a region
+load: STARTUP
+
+commands:
+  /setgrasscolor:
+    description: Change the color of the grass in a region
+    permission: custombiomecolors.grass
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command> <hex-color> [biome:name]"
+  /setfoliagecolor:
+    description: Change the color of the foliage in a region
+    permission: custombiomecolors.foliage
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command> <hex-color> [biome:name]"
+  /setwatercolor:
+    description: Change the color of the water in a region
+    permission: custombiomecolors.water
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command> <hex-color> [biome:name]"
+  /setwaterfogcolor:
+    description: Change the color of the water fog in a region
+    permission: custombiomecolors.waterfog
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command> <hex-color> [biome:name]"
+  /setskycolor:
+    description: Change the color of the sky in a region
+    permission: custombiomecolors.sky
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command> <hex-color> [biome:name]"
+  /setfogcolor:
+    description: Change the color of the fog in a region
+    permission: custombiomecolors.fog
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command> <hex-color> [biome:name]"
+  /getbiomecolors:
+    description: Get the colors of the biome you're in
+    permission: custombiomecolors.get
+    permission-message: You do not have access to that command.
+    usage: "Usage: /<command>"
+
+permissions:
+  custombiomecolors.all:
+    description: Gives access to all commands
+    default: op
+    children:
+      custombiomecolors.grass: true
+      custombiomecolors.foliage: true
+      custombiomecolors.water: true
+      custombiomecolors.waterfog: true
+      custombiomecolors.sky: true
+      custombiomecolors.fog: true
+      custombiomecolors.get: true
+  custombiomecolors.grass:
+    description: Gives access to //setgrasscolor
+    default: op
+  custombiomecolors.foliage:
+    description: Gives access to //setfoliagecolor
+    default: op
+  custombiomecolors.water:
+    description: Gives access to //setwatercolor
+    default: op
+  custombiomecolors.waterfog:
+    description: Gives access to //setwaterfogcolor
+    default: op
+  custombiomecolors.sky:
+    description: Gives access to //setskycolor
+    default: op
+  custombiomecolors.fog:
+    description: Gives access to //setfogcolor
+    default: op
+  custombiomecolors.get:
+    description: Gives access to //getbiomecolors
+    default: op
