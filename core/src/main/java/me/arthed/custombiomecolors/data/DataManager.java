@@ -78,7 +78,6 @@ public class DataManager {
 
     public void loadBiomes() {
         for (String biomeKeyString : this.map.keySet()) {
-            Bukkit.getConsoleSender().sendMessage("BIOME: " + biomeKeyString);
             int[] colors = map.get(biomeKeyString);
             plugin.getNmsServer().loadBiome(
                     new BiomeKey(biomeKeyString),
