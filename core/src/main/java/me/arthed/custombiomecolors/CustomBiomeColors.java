@@ -7,6 +7,7 @@ import me.arthed.custombiomecolors.integration.WorldEditHandler;
 import me.arthed.custombiomecolors.nms.NmsServer;
 import me.arthed.custombiomecolors.nms.NmsServer_1_16;
 import me.arthed.custombiomecolors.nms.NmsServer_1_17;
+import me.arthed.custombiomecolors.utils.BStats;
 import me.arthed.custombiomecolors.utils.objects.BiomeColorType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -57,6 +58,8 @@ public final class CustomBiomeColors extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&l[CustomBiomeColors] This plugin works only on 1.16 and higher versions."));
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        new BStats(this, 12660);
 
         this.dataManager = new DataManager("data.json");
         this.dataManager.loadBiomes();
