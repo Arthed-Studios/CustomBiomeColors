@@ -3,6 +3,7 @@ version: '1.0.0'
 main: me.arthed.custombiomecolors.CustomBiomeColors
 api-version: 1.13
 authors: [ Arthed ]
+depend: [ WorldEdit ]
 description: Change the color of grass, leaves, water and the sky in a region
 load: STARTUP
 
