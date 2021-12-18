@@ -21,6 +21,4 @@ public interface NmsServer {
 
     void registerBiome(Object biomeBase, Object biomeMinecraftKey);
 
-    void refreshChunk(Chunk chunk);
-
 }
