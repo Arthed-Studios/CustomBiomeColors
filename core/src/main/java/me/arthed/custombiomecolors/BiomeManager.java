@@ -22,8 +22,6 @@ public class BiomeManager {
     }
 
     public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color, BiomeKey biomeKey) {
-        for(int b = 0; b < blocks.length; b += Math.min(blocks.length-1 - b, 50)) {
-            Bukkit.getScheduler().runTaskLater(CustomBiomeColors.getInstance(), () -> {
                 // Separate blocks by their biome
 
                 // key - BiomeBase of the biome
@@ -69,8 +67,6 @@ public class BiomeManager {
                         nmsServer.setBlocksBiome(block, newBiome);
                     }
                 }
-            }, b/5);
-        }
     }
 
 }
