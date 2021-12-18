@@ -57,12 +57,12 @@ public class NmsServer_1_18 implements NmsServer {
         customBiomeBuilder.a(biomeBase.r());
         customBiomeBuilder.a(biomeBase.c());
         try {
-            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("m");
+            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("l");
             biomeSettingMobsField.setAccessible(true);
             BiomeSettingsMobs biomeSettingMobs = (BiomeSettingsMobs) biomeSettingMobsField.get(biomeBase);
             customBiomeBuilder.a(biomeSettingMobs);
 
-            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("l");
+            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("k");
             biomeSettingGenField.setAccessible(true);
             BiomeSettingsGeneration biomeSettingGen = (BiomeSettingsGeneration) biomeSettingGenField.get(biomeBase);
             customBiomeBuilder.a(biomeSettingGen);

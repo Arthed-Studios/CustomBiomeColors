@@ -51,12 +51,12 @@ public class NmsBiome_1_18 implements NmsBiome {
         customBiomeBuilder.a(this.biomeBase.r());
         customBiomeBuilder.a(this.biomeBase.c());
         try {
-            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("m");
+            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("l");
             biomeSettingMobsField.setAccessible(true);
             BiomeSettingsMobs biomeSettingMobs = (BiomeSettingsMobs) biomeSettingMobsField.get(this.biomeBase);
             customBiomeBuilder.a(biomeSettingMobs);
 
-            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("l");
+            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("k");
             biomeSettingGenField.setAccessible(true);
             BiomeSettingsGeneration biomeSettingGen = (BiomeSettingsGeneration) biomeSettingGenField.get(this.biomeBase);
             customBiomeBuilder.a(biomeSettingGen);
