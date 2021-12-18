@@ -7,7 +7,6 @@ import me.arthed.custombiomecolors.CustomBiomeColors;
 import me.arthed.custombiomecolors.nms.NmsBiome;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
-import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;

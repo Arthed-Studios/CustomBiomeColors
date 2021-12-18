@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public class ReflectionUtils {
 
-    public static JavaPlugin plugin;
-
     @Nullable
     public static Object getPrivateObject(Object object, String fieldName) throws NoSuchFieldException {
         Field field = object.getClass().getDeclaredField(fieldName);

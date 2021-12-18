@@ -2,7 +2,6 @@ package me.arthed.custombiomecolors.nms;
 
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
-import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 
 public interface NmsServer {

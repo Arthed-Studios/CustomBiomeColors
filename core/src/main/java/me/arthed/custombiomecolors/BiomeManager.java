@@ -7,7 +7,6 @@ import me.arthed.custombiomecolors.utils.StringUtils;
 import me.arthed.custombiomecolors.utils.objects.BiomeColorType;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import java.util.*;
