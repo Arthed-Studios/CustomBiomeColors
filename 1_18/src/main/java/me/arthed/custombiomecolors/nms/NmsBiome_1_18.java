@@ -28,7 +28,7 @@ public class NmsBiome_1_18 implements NmsBiome {
     @Override
     public BiomeColors getBiomeColors() {
         try {
-            BiomeFog biomeFog = (BiomeFog) ReflectionUtils.getPrivateObject(this.biomeBase, "q");
+            BiomeFog biomeFog = (BiomeFog) ReflectionUtils.getPrivateObject(this.biomeBase, "n");
             assert biomeFog != null;
             return new BiomeColors()
                     .setGrassColor(ReflectionUtils.getPrivateOptionalInteger(biomeFog, "g"))
