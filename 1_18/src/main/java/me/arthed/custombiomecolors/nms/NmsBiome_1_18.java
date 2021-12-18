@@ -1,6 +1,5 @@
 package me.arthed.custombiomecolors.nms;
 
-import me.arthed.custombiomecolors.CustomBiomeColors;
 import me.arthed.custombiomecolors.utils.ReflectionUtils;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
@@ -45,7 +44,7 @@ public class NmsBiome_1_18 implements NmsBiome {
     }
 
     @Override
-    public NmsBiome cloneWithDifferentColors(BiomeKey newBiomeKey, BiomeColors newColors) {
+    public NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey newBiomeKey, BiomeColors newColors) {
         ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aR, new MinecraftKey(newBiomeKey.key, newBiomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
@@ -86,7 +85,7 @@ public class NmsBiome_1_18 implements NmsBiome {
         customBiomeBuilder.a(customBiomeColors.a());
         BiomeBase customBiome = customBiomeBuilder.a();
 
-        CustomBiomeColors.getInstance().getNmsServer().registerBiome(customBiome, customBiomeKey);
+        nmsServer.registerBiome(customBiome, customBiomeKey);
 
         return new NmsBiome_1_18(customBiome);
     }

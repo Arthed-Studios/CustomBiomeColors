@@ -59,7 +59,7 @@ public class BiomeManager {
                     NmsBiome newBiome = this.dataManager.getBiomeWithSpecificColors(biomeColors);
 
                     if (newBiome == null) {
-                        newBiome = biome.cloneWithDifferentColors(individualBiomeKey, biomeColors);
+                        newBiome = biome.cloneWithDifferentColors(this.nmsServer, individualBiomeKey, biomeColors);
                         this.dataManager.saveBiome(individualBiomeKey, biomeColors);
                         individualBiomeKey = new BiomeKey(biomeKey.key, biomeKey.value + "." + i);
                         i++;

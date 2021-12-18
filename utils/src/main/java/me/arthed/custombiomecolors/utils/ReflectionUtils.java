@@ -1,11 +1,14 @@
 package me.arthed.custombiomecolors.utils;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
 
 public class ReflectionUtils {
+
+    public static JavaPlugin plugin;
 
     @Nullable
     public static Object getPrivateObject(Object object, String fieldName) throws NoSuchFieldException {

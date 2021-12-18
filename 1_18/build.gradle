@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot:1.18-R0.1-SNAPSHOT'
-    implementation project(":core")
+    implementation project(":utils")
 }
 
 task prepareKotlinBuildScriptModel {

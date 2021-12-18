@@ -9,7 +9,7 @@ public interface NmsBiome {
 
     BiomeColors getBiomeColors();
 
-    NmsBiome cloneWithDifferentColors(BiomeKey newBiomeKey, BiomeColors newColors);
+    NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey newBiomeKey, BiomeColors newColors);
 
 
 }

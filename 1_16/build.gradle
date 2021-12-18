@@ -12,7 +12,7 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:16.0.2'
     compileOnly 'org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT'
-    implementation project(":core")
+    implementation project(":utils")
 }
 
 task prepareKotlinBuildScriptModel {
