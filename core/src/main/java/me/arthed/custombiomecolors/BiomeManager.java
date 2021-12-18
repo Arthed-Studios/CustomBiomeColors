@@ -7,6 +7,7 @@ import me.arthed.custombiomecolors.utils.StringUtils;
 import me.arthed.custombiomecolors.utils.objects.BiomeColorType;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import java.util.*;
@@ -21,51 +22,54 @@ public class BiomeManager {
     }
 
     public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color, BiomeKey biomeKey) {
+        for(int b = 0; b < blocks.length; b += Math.min(blocks.length-1 - b, 50)) {
+            Bukkit.getScheduler().runTaskLater(CustomBiomeColors.getInstance(), () -> {
+                // Separate blocks by their biome
 
-        // Separate blocks by their biome
+                // key - BiomeBase of the biome
+                // value - list of blocks in that biome
+                Map<Object, List<Block>> blocksInEachBiome = new HashMap<>();
 
-        // key - BiomeBase of the biome
-        // value - list of blocks in that biome
-        Map<Object, List<Block>> blocksInEachBiome = new HashMap<>();
-
-        for (Block block : blocks) {
-            boolean added = false;
-            Object blocksBiomeBase = nmsServer.getBlocksBiomeBase(block);
-            for (Object biomeBase : blocksInEachBiome.keySet()) {
-                if (blocksBiomeBase.equals(biomeBase)) {
-                    blocksInEachBiome.get(biomeBase).add(block);
-                    added = true;
-                    break;
+                for (Block block : blocks) {
+                    boolean added = false;
+                    Object blocksBiomeBase = nmsServer.getBlocksBiomeBase(block);
+                    for (Object biomeBase : blocksInEachBiome.keySet()) {
+                        if (blocksBiomeBase.equals(biomeBase)) {
+                            blocksInEachBiome.get(biomeBase).add(block);
+                            added = true;
+                            break;
+                        }
+                    }
+                    if (!added) {
+                        List<Block> blocksInBiome = new ArrayList<>();
+                        blocksInBiome.add(block);
+                        blocksInEachBiome.put(blocksBiomeBase, blocksInBiome);
+                    }
                 }
-            }
-            if (!added) {
-                List<Block> blocksInBiome = new ArrayList<>();
-                blocksInBiome.add(block);
-                blocksInEachBiome.put(blocksBiomeBase, blocksInBiome);
-            }
-        }
 
-        // Add the new color change to every block from each biome type
+                // Add the new color change to every block from each biome type
 
-        BiomeKey individualBiomeKey = biomeKey;
-        int i = 0;
-        for (Object biomeBase : blocksInEachBiome.keySet()) {
-            NmsBiome biome = nmsServer.getBiomeFromBiomeBase(biomeBase);
-            BiomeColors biomeColors = biome.getBiomeColors();
-            biomeColors.setColor(colorType, color);
+                BiomeKey individualBiomeKey = biomeKey;
+                int i = 0;
+                for (Object biomeBase : blocksInEachBiome.keySet()) {
+                    NmsBiome biome = nmsServer.getBiomeFromBiomeBase(biomeBase);
+                    BiomeColors biomeColors = biome.getBiomeColors();
+                    biomeColors.setColor(colorType, color);
 
-            NmsBiome newBiome = this.dataManager.getBiomeWithSpecificColors(biomeColors);
+                    NmsBiome newBiome = this.dataManager.getBiomeWithSpecificColors(biomeColors);
 
-            if(newBiome == null) {
-                newBiome = biome.cloneWithDifferentColors(individualBiomeKey, biomeColors);
-                this.dataManager.saveBiome(individualBiomeKey, biomeColors);
-                individualBiomeKey = new BiomeKey(biomeKey.key, biomeKey.value + "." + i);
-                i++;
-            }
+                    if (newBiome == null) {
+                        newBiome = biome.cloneWithDifferentColors(individualBiomeKey, biomeColors);
+                        this.dataManager.saveBiome(individualBiomeKey, biomeColors);
+                        individualBiomeKey = new BiomeKey(biomeKey.key, biomeKey.value + "." + i);
+                        i++;
+                    }
 
-            for (Block block : blocksInEachBiome.get(biomeBase)) {
-                nmsServer.setBlocksBiome(block, newBiome);
-            }
+                    for (Block block : blocksInEachBiome.get(biomeBase)) {
+                        nmsServer.setBlocksBiome(block, newBiome);
+                    }
+                }
+            }, b/5);
         }
     }
 
