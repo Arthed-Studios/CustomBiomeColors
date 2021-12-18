@@ -9,6 +9,7 @@ import me.arthed.custombiomecolors.nms.NmsServer_1_16;
 import me.arthed.custombiomecolors.nms.NmsServer_1_17;
 import me.arthed.custombiomecolors.nms.NmsServer_1_18;
 import me.arthed.custombiomecolors.utils.BStats;
+import me.arthed.custombiomecolors.utils.Updater;
 import me.arthed.custombiomecolors.utils.objects.BiomeColorType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -77,6 +78,8 @@ public final class CustomBiomeColors extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("/setskycolor")).setExecutor(new SetBiomeColorCommand("/setskycolor", BiomeColorType.SKY));
         Objects.requireNonNull(this.getCommand("/setfogcolor")).setExecutor(new SetBiomeColorCommand("/setfogcolor", BiomeColorType.FOG));
         Objects.requireNonNull(this.getCommand("/getbiomecolors")).setExecutor(new GetBiomeColorsCommand());
+
+        new Updater(this, 95858);
 
     }
 
