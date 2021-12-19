@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'me.arthed'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
     mavenCentral()
@@ -16,8 +16,10 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:16.0.2'
+    implementation project(':utils')
     implementation project(':1_16')
     implementation project(':1_17')
+    implementation project(':1_18')
     compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT'
 }

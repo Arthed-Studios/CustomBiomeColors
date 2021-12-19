@@ -13,11 +13,11 @@ import net.minecraft.world.level.biome.BiomeSettingsMobs;
 
 import java.lang.reflect.Field;
 
-public class NmsBiome_1_17 implements NmsBiome {
+public class NmsBiome_1_18 implements NmsBiome {
 
     private final BiomeBase biomeBase;
 
-    public NmsBiome_1_17(BiomeBase biomeBase) {
+    public NmsBiome_1_18(BiomeBase biomeBase) {
         this.biomeBase = biomeBase;
     }
 
@@ -28,7 +28,7 @@ public class NmsBiome_1_17 implements NmsBiome {
     @Override
     public BiomeColors getBiomeColors() {
         try {
-            BiomeFog biomeFog = (BiomeFog) ReflectionUtils.getPrivateObject(this.biomeBase, "q");
+            BiomeFog biomeFog = (BiomeFog) ReflectionUtils.getPrivateObject(this.biomeBase, "n");
             assert biomeFog != null;
             return new BiomeColors()
                     .setGrassColor(ReflectionUtils.getPrivateOptionalInteger(biomeFog, "g"))
@@ -45,18 +45,18 @@ public class NmsBiome_1_17 implements NmsBiome {
 
     @Override
     public NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey newBiomeKey, BiomeColors newColors) {
-        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aO, new MinecraftKey(newBiomeKey.key, newBiomeKey.value));
+        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aR, new MinecraftKey(newBiomeKey.key, newBiomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
-        customBiomeBuilder.a(this.biomeBase.t());
+        customBiomeBuilder.a(this.biomeBase.r());
         customBiomeBuilder.a(this.biomeBase.c());
         try {
-            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("m");
+            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("l");
             biomeSettingMobsField.setAccessible(true);
             BiomeSettingsMobs biomeSettingMobs = (BiomeSettingsMobs) biomeSettingMobsField.get(this.biomeBase);
             customBiomeBuilder.a(biomeSettingMobs);
 
-            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("l");
+            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("k");
             biomeSettingGenField.setAccessible(true);
             BiomeSettingsGeneration biomeSettingGen = (BiomeSettingsGeneration) biomeSettingGenField.get(this.biomeBase);
             customBiomeBuilder.a(biomeSettingGen);
@@ -65,8 +65,7 @@ public class NmsBiome_1_17 implements NmsBiome {
         }
         customBiomeBuilder.a(0.2F);
         customBiomeBuilder.b(0.05F);
-        customBiomeBuilder.c(0.7F);
-        customBiomeBuilder.d(0.8F);
+
         customBiomeBuilder.a(BiomeBase.TemperatureModifier.a);
 
         BiomeFog.a customBiomeColors = new BiomeFog.a();
@@ -88,7 +87,7 @@ public class NmsBiome_1_17 implements NmsBiome {
 
         nmsServer.registerBiome(customBiome, customBiomeKey);
 
-        return new NmsBiome_1_17(customBiome);
+        return new NmsBiome_1_18(customBiome);
     }
 
     public boolean equals(Object object) {
