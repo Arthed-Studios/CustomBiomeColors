@@ -49,7 +49,7 @@ public final class CustomBiomeColors extends JavaPlugin {
     }
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         instance = this;
 
         if(Bukkit.getVersion().contains("1.16")) {
@@ -63,10 +63,14 @@ public final class CustomBiomeColors extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        new BStats(this, 12660);
-
         this.dataManager = new DataManager("data.json");
         this.dataManager.loadBiomes();
+
+    }
+
+    @Override
+    public void onEnable() {
+        new BStats(this, 12660);
 
         this.biomeManager = new BiomeManager();
         this.worldEditHandler = new WorldEditHandler();
