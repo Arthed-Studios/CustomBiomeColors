@@ -7,6 +7,7 @@ import me.arthed.custombiomecolors.utils.StringUtils;
 import me.arthed.custombiomecolors.utils.objects.BiomeColorType;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import java.util.*;
@@ -21,6 +22,7 @@ public class BiomeManager {
     }
 
     public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color, BiomeKey biomeKey) {
+        Bukkit.getScheduler().runTaskAsynchronously(CustomBiomeColors.getInstance(), () -> {
                 // Separate blocks by their biome
 
                 // key - BiomeBase of the biome
@@ -66,6 +68,7 @@ public class BiomeManager {
                         nmsServer.setBlocksBiome(block, newBiome);
                     }
                 }
+        });
     }
 
 }
