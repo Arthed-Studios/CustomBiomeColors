@@ -17,11 +17,11 @@ public class BiomeManager {
     private final NmsServer nmsServer = CustomBiomeColors.getInstance().getNmsServer();
     private final DataManager dataManager = CustomBiomeColors.getInstance().getDataManager();
 
-    public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color) {
-        this.changeBiomeColor(blocks, colorType, color, new BiomeKey("cbc", StringUtils.randomString(8)));
+    public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color, Runnable runWhenDone) {
+        this.changeBiomeColor(blocks, colorType, color, new BiomeKey("cbc", StringUtils.randomString(8)), runWhenDone);
     }
 
-    public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color, BiomeKey biomeKey) {
+    public void changeBiomeColor(Block[] blocks, BiomeColorType colorType, int color, BiomeKey biomeKey, Runnable runWhenDone) {
         Bukkit.getScheduler().runTaskAsynchronously(CustomBiomeColors.getInstance(), () -> {
                 // Separate blocks by their biome
 
@@ -68,6 +68,7 @@ public class BiomeManager {
                         nmsServer.setBlocksBiome(block, newBiome);
                     }
                 }
+                runWhenDone.run();
         });
     }
 

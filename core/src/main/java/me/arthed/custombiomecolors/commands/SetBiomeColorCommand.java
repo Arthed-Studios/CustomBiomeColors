@@ -47,6 +47,12 @@ public class SetBiomeColorCommand implements CommandExecutor, TabExecutor {
                     return true;
                 }
 
+
+                Runnable runWhenDone = () -> {
+                    sender.sendMessage(ChatColor.GREEN + "Biome color was changed for approximately " + blocks.length + " blocks.");
+                    sender.sendMessage(ChatColor.GREEN + "You must re-join your game to see the changes.");
+                };
+
                 if(args.length > 1) {
                     if(!args[1].contains(":")) {
                         sender.sendMessage(ChatColor.RED + "The biome name must contain a colon. ( : )");
@@ -58,14 +64,16 @@ public class SetBiomeColorCommand implements CommandExecutor, TabExecutor {
                         return true;
                     }
 
-                    CustomBiomeColors.getInstance().getBiomeManager().changeBiomeColor(blocks, this.colorType, color, biomeKey);
+                    CustomBiomeColors.getInstance().getBiomeManager().changeBiomeColor(blocks, this.colorType, color, biomeKey, runWhenDone);
                 }
                 else {
-                    CustomBiomeColors.getInstance().getBiomeManager().changeBiomeColor(blocks, this.colorType, color);
+                    CustomBiomeColors.getInstance().getBiomeManager().changeBiomeColor(blocks, this.colorType, color, runWhenDone);
                 }
 
-                sender.sendMessage(ChatColor.GREEN + "Biome color was changed for approximately " + blocks.length + " blocks.");
-                sender.sendMessage(ChatColor.GREEN + "You must re-join your game to see the changes.");
+                sender.sendMessage(ChatColor.GRAY + "Changing the biome of " + blocks.length + " blocks...");
+                if(blocks.length > 200000)
+                    sender.sendMessage(ChatColor.GRAY + "This might take a while.");
+
                 return true;
             }
         }
