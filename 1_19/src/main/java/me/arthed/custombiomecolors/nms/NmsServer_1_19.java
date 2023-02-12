@@ -1,12 +1,13 @@
 package me.arthed.custombiomecolors.nms;
 
+import com.mojang.serialization.Lifecycle;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
 import net.minecraft.core.BlockPosition;
 import net.minecraft.core.Holder;
-import net.minecraft.core.IRegistry;
 import net.minecraft.core.IRegistryWritable;
 import net.minecraft.core.RegistryMaterials;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.MinecraftKey;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.World;
@@ -16,18 +17,18 @@ import net.minecraft.world.level.biome.BiomeSettingsGeneration;
 import net.minecraft.world.level.biome.BiomeSettingsMobs;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_19_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R2.CraftWorld;
 
 import java.lang.reflect.Field;
 
 public class NmsServer_1_19 implements NmsServer {
 
-	private final IRegistryWritable<BiomeBase> biomeRegistry = (IRegistryWritable<BiomeBase>) ((CraftServer) Bukkit.getServer()).getServer().aX().b(IRegistry.aR);
+	private final IRegistryWritable<BiomeBase> biomeRegistry = (IRegistryWritable<BiomeBase>) ((CraftServer) Bukkit.getServer()).getServer().aW().b(Registries.al);
 
 	@Override
 	public NmsBiome getBiomeFromBiomeKey(BiomeKey biomeKey) {
-		return new NmsBiome_1_19(this.biomeRegistry.a(ResourceKey.a(IRegistry.aR, new MinecraftKey(biomeKey.key, biomeKey.value))));
+		return new NmsBiome_1_19(this.biomeRegistry.a(ResourceKey.a(Registries.al, new MinecraftKey(biomeKey.key, biomeKey.value))));
 	}
 
 	@Override
@@ -37,13 +38,13 @@ public class NmsServer_1_19 implements NmsServer {
 
 	@Override
 	public boolean doesBiomeExist(BiomeKey biomeKey) {
-		return this.biomeRegistry.a(ResourceKey.a(IRegistry.aR, new MinecraftKey(biomeKey.key, biomeKey.value))) == null;
+		return this.biomeRegistry.a(ResourceKey.a(Registries.al, new MinecraftKey(biomeKey.key, biomeKey.value))) == null;
 	}
 
 	@Override
 	public void loadBiome(BiomeKey biomeKey, BiomeColors biomeColors) {
-		BiomeBase biomeBase = this.biomeRegistry.a(ResourceKey.a(IRegistry.aR, new MinecraftKey("minecraft", "plains")));
-		ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aR, new MinecraftKey(biomeKey.key, biomeKey.value));
+		BiomeBase biomeBase = this.biomeRegistry.a(ResourceKey.a(Registries.al, new MinecraftKey("minecraft", "plains")));
+		ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(Registries.al, new MinecraftKey(biomeKey.key, biomeKey.value));
 		BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
 		customBiomeBuilder.a(biomeBase.a());
@@ -111,14 +112,6 @@ public class NmsServer_1_19 implements NmsServer {
 
 	@Override
 	public void registerBiome(Object biomeBase, Object biomeMinecraftKey) {
-		try {
-			Field frozen = RegistryMaterials.class.getDeclaredField("ca");
-			frozen.setAccessible(true);
-			frozen.set(((CraftServer) Bukkit.getServer()).getServer().aX().b(IRegistry.aR), false);
-			this.biomeRegistry.a(biomeRegistry, (ResourceKey<BiomeBase>) biomeMinecraftKey, (BiomeBase) biomeBase);
-			frozen.set(((CraftServer) Bukkit.getServer()).getServer().aX().b(IRegistry.aR), true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.biomeRegistry.a((ResourceKey<BiomeBase>) biomeMinecraftKey, (BiomeBase) biomeBase, Lifecycle.stable());
 	}
 }
