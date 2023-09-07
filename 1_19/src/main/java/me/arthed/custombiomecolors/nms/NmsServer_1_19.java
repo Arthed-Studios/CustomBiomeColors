@@ -43,7 +43,7 @@ public class NmsServer_1_19 implements NmsServer {
 				Registries.an,
 				new MinecraftKey("minecraft", "plains")
 		));
-		
+
 		ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(Registries.an, new MinecraftKey(biomeKey.key, biomeKey.value));
 		BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
