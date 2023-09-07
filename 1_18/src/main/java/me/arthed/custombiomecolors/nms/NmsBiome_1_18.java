@@ -8,8 +8,6 @@ import net.minecraft.resources.MinecraftKey;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.BiomeBase;
 import net.minecraft.world.level.biome.BiomeFog;
-import net.minecraft.world.level.biome.BiomeSettingsGeneration;
-import net.minecraft.world.level.biome.BiomeSettingsMobs;
 
 import java.lang.reflect.Field;
 
@@ -44,43 +42,38 @@ public class NmsBiome_1_18 implements NmsBiome {
     }
 
     @Override
-    public NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey newBiomeKey, BiomeColors newColors) {
-        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aR, new MinecraftKey(newBiomeKey.key, newBiomeKey.value));
+    public NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey biomeKey, BiomeColors biomeColors) {
+        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aP, new MinecraftKey(biomeKey.key, biomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
-        customBiomeBuilder.a(this.biomeBase.r());
-        customBiomeBuilder.a(this.biomeBase.c());
+        customBiomeBuilder.a(biomeBase.e());
+        customBiomeBuilder.a(biomeBase.b());
+        customBiomeBuilder.a(biomeBase.c());
         try {
-            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("l");
-            biomeSettingMobsField.setAccessible(true);
-            BiomeSettingsMobs biomeSettingMobs = (BiomeSettingsMobs) biomeSettingMobsField.get(this.biomeBase);
-            customBiomeBuilder.a(biomeSettingMobs);
-
-            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("k");
-            biomeSettingGenField.setAccessible(true);
-            BiomeSettingsGeneration biomeSettingGen = (BiomeSettingsGeneration) biomeSettingGenField.get(this.biomeBase);
-            customBiomeBuilder.a(biomeSettingGen);
+            Field geographyField = BiomeBase.class.getDeclaredField("t");
+            geographyField.setAccessible(true);
+            BiomeBase.Geography geography = (BiomeBase.Geography) geographyField.get(biomeBase);
+            customBiomeBuilder.a(geography);
         } catch(Exception exception) {
             exception.printStackTrace();
         }
-        customBiomeBuilder.a(0.2F);
-        customBiomeBuilder.b(0.05F);
-
+        customBiomeBuilder.a(0.7F);
+        customBiomeBuilder.b(0.8F);
         customBiomeBuilder.a(BiomeBase.TemperatureModifier.a);
 
         BiomeFog.a customBiomeColors = new BiomeFog.a();
         customBiomeColors.a(BiomeFog.GrassColor.a);
 
-        if(newColors.getGrassColor() != 0) {
-            customBiomeColors.f(newColors.getGrassColor());
+        if(biomeColors.getGrassColor() != 0) {
+            customBiomeColors.f(biomeColors.getGrassColor());
         }
-        if(newColors.getFoliageColor() != 0) {
-            customBiomeColors.e(newColors.getFoliageColor());
+        if(biomeColors.getFoliageColor() != 0) {
+            customBiomeColors.e(biomeColors.getFoliageColor());
         }
-        customBiomeColors.b(newColors.getWaterColor());
-        customBiomeColors.c(newColors.getWaterFogColor());
-        customBiomeColors.d(newColors.getSkyColor());
-        customBiomeColors.a(newColors.getFogColor());
+        customBiomeColors.b(biomeColors.getWaterColor());
+        customBiomeColors.c(biomeColors.getWaterFogColor());
+        customBiomeColors.d(biomeColors.getSkyColor());
+        customBiomeColors.a(biomeColors.getFogColor());
 
         customBiomeBuilder.a(customBiomeColors.a());
         BiomeBase customBiome = customBiomeBuilder.a();

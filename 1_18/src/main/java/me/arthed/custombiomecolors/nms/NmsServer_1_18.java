@@ -3,31 +3,27 @@ package me.arthed.custombiomecolors.nms;
 import com.mojang.serialization.Lifecycle;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
-import net.minecraft.core.BlockPosition;
-import net.minecraft.core.IRegistry;
-import net.minecraft.core.IRegistryWritable;
+import net.minecraft.core.*;
 import net.minecraft.resources.MinecraftKey;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.World;
 import net.minecraft.world.level.biome.BiomeBase;
 import net.minecraft.world.level.biome.BiomeFog;
-import net.minecraft.world.level.biome.BiomeSettingsGeneration;
-import net.minecraft.world.level.biome.BiomeSettingsMobs;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_18_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
 
 import java.lang.reflect.Field;
 
 public class NmsServer_1_18 implements NmsServer {
 
-    private final IRegistryWritable<BiomeBase> biomeRegistry = ((CraftServer) Bukkit.getServer()).getServer().aV().b(IRegistry.aR);
+    private final RegistryMaterials<BiomeBase> biomeRegistry = ((RegistryMaterials<BiomeBase>) ((CraftServer) Bukkit.getServer()).getServer().aU().b(IRegistry.aP));
 
     @Override
     public NmsBiome getBiomeFromBiomeKey(BiomeKey biomeKey) {
         return new NmsBiome_1_18(this.biomeRegistry.a(ResourceKey.a(
-                IRegistry.aR,
+                IRegistry.aP,
                 new MinecraftKey(biomeKey.key, biomeKey.value)
         )));
     }
@@ -40,7 +36,7 @@ public class NmsServer_1_18 implements NmsServer {
     @Override
     public boolean doesBiomeExist(BiomeKey biomeKey) {
         return this.biomeRegistry.a(ResourceKey.a(
-                IRegistry.aR,
+                IRegistry.aP,
                 new MinecraftKey(biomeKey.key, biomeKey.value)
         )) == null;
     }
@@ -48,29 +44,25 @@ public class NmsServer_1_18 implements NmsServer {
     @Override
     public void loadBiome(BiomeKey biomeKey, BiomeColors biomeColors) {
         BiomeBase biomeBase = this.biomeRegistry.a(ResourceKey.a(
-                IRegistry.aR,
+                IRegistry.aP,
                 new MinecraftKey("minecraft", "plains")
         ));
-        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aR, new MinecraftKey(biomeKey.key, biomeKey.value));
+        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aP, new MinecraftKey(biomeKey.key, biomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
-        customBiomeBuilder.a(biomeBase.r());
+        customBiomeBuilder.a(biomeBase.e());
+        customBiomeBuilder.a(biomeBase.b());
         customBiomeBuilder.a(biomeBase.c());
         try {
-            Field biomeSettingMobsField = BiomeBase.class.getDeclaredField("l");
-            biomeSettingMobsField.setAccessible(true);
-            BiomeSettingsMobs biomeSettingMobs = (BiomeSettingsMobs) biomeSettingMobsField.get(biomeBase);
-            customBiomeBuilder.a(biomeSettingMobs);
-
-            Field biomeSettingGenField = BiomeBase.class.getDeclaredField("k");
-            biomeSettingGenField.setAccessible(true);
-            BiomeSettingsGeneration biomeSettingGen = (BiomeSettingsGeneration) biomeSettingGenField.get(biomeBase);
-            customBiomeBuilder.a(biomeSettingGen);
+            Field geographyField = BiomeBase.class.getDeclaredField("t");
+            geographyField.setAccessible(true);
+            BiomeBase.Geography geography = (BiomeBase.Geography) geographyField.get(biomeBase);
+            customBiomeBuilder.a(geography);
         } catch(Exception exception) {
             exception.printStackTrace();
         }
-        customBiomeBuilder.a(0.2F);
-        customBiomeBuilder.b(0.05F);
+        customBiomeBuilder.a(0.7F);
+        customBiomeBuilder.b(0.8F);
         customBiomeBuilder.a(BiomeBase.TemperatureModifier.a);
 
         BiomeFog.a customBiomeColors = new BiomeFog.a();
@@ -100,7 +92,7 @@ public class NmsServer_1_18 implements NmsServer {
 
         net.minecraft.world.level.chunk.Chunk chunk = nmsWorld.l(blockPosition);
         if (chunk != null) {
-            chunk.setBiome(block.getX() >> 2, block.getY() >> 2, block.getZ() >> 2, (BiomeBase) nmsBiome.getBiomeBase());
+            chunk.setBiome(block.getX() >> 2, block.getY() >> 2, block.getZ() >> 2, Holder.a((BiomeBase) nmsBiome.getBiomeBase()));
         }
     }
 
@@ -121,7 +113,15 @@ public class NmsServer_1_18 implements NmsServer {
 
     @Override
     public void registerBiome(Object biomeBase, Object biomeMinecraftKey) {
-        this.biomeRegistry.a((ResourceKey<BiomeBase>) biomeMinecraftKey, (BiomeBase) biomeBase, Lifecycle.stable());
+        try {
+            Field isFrozen = this.biomeRegistry.getClass().getDeclaredField("bL");
+            isFrozen.setAccessible(true);
+            isFrozen.set(this.biomeRegistry, false);
+            this.biomeRegistry.a((ResourceKey<BiomeBase>) biomeMinecraftKey, (BiomeBase) biomeBase, Lifecycle.stable());
+            isFrozen.set(this.biomeRegistry, true);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
 }
