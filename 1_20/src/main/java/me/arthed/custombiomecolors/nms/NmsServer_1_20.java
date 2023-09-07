@@ -43,7 +43,6 @@ public class NmsServer_1_20 implements NmsServer {
                 Registries.ap,
                 new MinecraftKey("minecraft", "plains")
         ));
-        Bukkit.getLogger().warning("LOADING: " + biomeKey.key + " - " + biomeKey.value);
         ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(Registries.ap, new MinecraftKey(biomeKey.key, biomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 

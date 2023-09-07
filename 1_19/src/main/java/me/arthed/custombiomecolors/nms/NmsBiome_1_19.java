@@ -45,8 +45,6 @@ public class NmsBiome_1_19 implements NmsBiome {
         ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(Registries.an, new MinecraftKey(newBiomeKey.key, newBiomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
-        Bukkit.getLogger().warning("CREATING: " + newBiomeKey.key + " - " + newBiomeKey.value);
-
         customBiomeBuilder.a(biomeBase.d());
         customBiomeBuilder.a(biomeBase.b());
         customBiomeBuilder.a(0.7F);
