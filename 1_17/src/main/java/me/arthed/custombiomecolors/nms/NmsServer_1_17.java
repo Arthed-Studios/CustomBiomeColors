@@ -42,7 +42,7 @@ public class NmsServer_1_17 implements NmsServer {
         return this.biomeRegistry.a(ResourceKey.a(
                 IRegistry.aO,
                 new MinecraftKey(biomeKey.key, biomeKey.value)
-        )) == null;
+        )) != null;
     }
 
     @Override

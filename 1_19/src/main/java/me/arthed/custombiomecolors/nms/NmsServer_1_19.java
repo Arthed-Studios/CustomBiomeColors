@@ -34,7 +34,7 @@ public class NmsServer_1_19 implements NmsServer {
 
 	@Override
 	public boolean doesBiomeExist(BiomeKey biomeKey) {
-		return this.biomeRegistry.a(ResourceKey.a(Registries.an, new MinecraftKey(biomeKey.key, biomeKey.value))) == null;
+		return this.biomeRegistry.a(ResourceKey.a(Registries.an, new MinecraftKey(biomeKey.key, biomeKey.value))) != null;
 	}
 
 	@Override
