@@ -1,10 +1,6 @@
 package me.arthed.custombiomecolors.utils.objects;
 
-import java.util.HashMap;
-
 public class BiomeColors {
-
-    public static HashMap<String, BiomeColors> customBiomeColors = new HashMap<>();
 
     private int grassColor;
     private int foliageColor;
@@ -12,8 +8,6 @@ public class BiomeColors {
     private int waterFogColor;
     private int skyColor;
     private int fogColor;
-
-    private String baseBiomeKey = "minecraft:forest";
 
     public BiomeColors setGrassColor(int grassColor) {
         this.grassColor = grassColor;
@@ -42,11 +36,6 @@ public class BiomeColors {
 
     public BiomeColors setFogColor(int fogColor) {
         this.fogColor = fogColor;
-        return this;
-    }
-
-    public BiomeColors setBaseBiomeKey(String baseBiomeKey) {
-        this.baseBiomeKey = baseBiomeKey;
         return this;
     }
 
@@ -88,10 +77,6 @@ public class BiomeColors {
 
     public int getFogColor() {
         return fogColor;
-    }
-
-    public String getBaseBiomeKey() {
-        return baseBiomeKey;
     }
 
 }
