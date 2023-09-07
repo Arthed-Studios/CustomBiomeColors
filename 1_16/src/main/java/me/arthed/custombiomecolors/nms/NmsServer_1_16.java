@@ -121,4 +121,12 @@ public class NmsServer_1_16 implements NmsServer {
         this.biomeRegistry.a((ResourceKey<BiomeBase>) biomeMinecraftKey, (BiomeBase) biomeBase, Lifecycle.stable());
     }
 
+    @Override
+    public String getBiomeString(NmsBiome nmsBiome) {
+        MinecraftKey minecraftKey = this.biomeRegistry.getKey((BiomeBase) nmsBiome.getBiomeBase());
+        if(minecraftKey != null)
+            return minecraftKey.toString();
+        return "minecraft:forest";
+    }
+
 }

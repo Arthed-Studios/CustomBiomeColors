@@ -124,4 +124,12 @@ public class NmsServer_1_18 implements NmsServer {
         }
     }
 
+    @Override
+    public String getBiomeString(NmsBiome nmsBiome) {
+        MinecraftKey minecraftKey = this.biomeRegistry.b((BiomeBase) nmsBiome.getBiomeBase());
+        if(minecraftKey != null)
+            return minecraftKey.toString();
+        return "minecraft:forest";
+    }
+
 }

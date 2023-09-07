@@ -8,7 +8,6 @@ import net.minecraft.resources.MinecraftKey;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.BiomeBase;
 import net.minecraft.world.level.biome.BiomeFog;
-import org.bukkit.Bukkit;
 
 public class NmsBiome_1_20 implements NmsBiome {
 
