@@ -3,19 +3,17 @@ package me.arthed.custombiomecolors.nms;
 import me.arthed.custombiomecolors.utils.ReflectionUtils;
 import me.arthed.custombiomecolors.utils.objects.BiomeColors;
 import me.arthed.custombiomecolors.utils.objects.BiomeKey;
-import net.minecraft.core.IRegistry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.MinecraftKey;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.BiomeBase;
 import net.minecraft.world.level.biome.BiomeFog;
 
-import java.lang.reflect.Field;
-
-public class NmsBiome_1_18 implements NmsBiome {
+public class NmsBiome_1_20_2 implements NmsBiome {
 
     private final BiomeBase biomeBase;
 
-    public NmsBiome_1_18(BiomeBase biomeBase) {
+    public NmsBiome_1_20_2(BiomeBase biomeBase) {
         this.biomeBase = biomeBase;
     }
 
@@ -26,7 +24,7 @@ public class NmsBiome_1_18 implements NmsBiome {
     @Override
     public BiomeColors getBiomeColors() {
         try {
-            BiomeFog biomeFog = (BiomeFog) ReflectionUtils.getPrivateObject(this.biomeBase, "n");
+            BiomeFog biomeFog = (BiomeFog) ReflectionUtils.getPrivateObject(this.biomeBase, "l");
             assert biomeFog != null;
             return new BiomeColors()
                     .setGrassColor(ReflectionUtils.getPrivateOptionalInteger(biomeFog, "g"))
@@ -42,21 +40,13 @@ public class NmsBiome_1_18 implements NmsBiome {
     }
 
     @Override
-    public NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey biomeKey, BiomeColors biomeColors) {
-        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(IRegistry.aP, new MinecraftKey(biomeKey.key, biomeKey.value));
+    public NmsBiome cloneWithDifferentColors(NmsServer nmsServer, BiomeKey newBiomeKey, BiomeColors biomeColors) {
+        ResourceKey<BiomeBase> customBiomeKey = ResourceKey.a(Registries.ap, new MinecraftKey(newBiomeKey.key, newBiomeKey.value));
         BiomeBase.a customBiomeBuilder = new BiomeBase.a();
 
-        customBiomeBuilder.a(biomeBase.e());
+
+        customBiomeBuilder.a(biomeBase.d());
         customBiomeBuilder.a(biomeBase.b());
-        customBiomeBuilder.a(biomeBase.c());
-        try {
-            Field geographyField = BiomeBase.class.getDeclaredField("t");
-            geographyField.setAccessible(true);
-            BiomeBase.Geography geography = (BiomeBase.Geography) geographyField.get(biomeBase);
-            customBiomeBuilder.a(geography);
-        } catch(Exception exception) {
-            exception.printStackTrace();
-        }
         customBiomeBuilder.a(0.7F);
         customBiomeBuilder.b(0.8F);
         customBiomeBuilder.a(BiomeBase.TemperatureModifier.a);
@@ -64,10 +54,10 @@ public class NmsBiome_1_18 implements NmsBiome {
         BiomeFog.a customBiomeColors = new BiomeFog.a();
         customBiomeColors.a(BiomeFog.GrassColor.a);
 
-        if(biomeColors.getGrassColor() != 0) {
+        if (biomeColors.getGrassColor() != 0) {
             customBiomeColors.f(biomeColors.getGrassColor());
         }
-        if(biomeColors.getFoliageColor() != 0) {
+        if (biomeColors.getFoliageColor() != 0) {
             customBiomeColors.e(biomeColors.getFoliageColor());
         }
         customBiomeColors.b(biomeColors.getWaterColor());
@@ -80,7 +70,7 @@ public class NmsBiome_1_18 implements NmsBiome {
 
         nmsServer.registerBiome(customBiome, customBiomeKey);
 
-        return new NmsBiome_1_18(customBiome);
+        return new NmsBiome_1_20_2(customBiome);
     }
 
     public boolean equals(Object object) {

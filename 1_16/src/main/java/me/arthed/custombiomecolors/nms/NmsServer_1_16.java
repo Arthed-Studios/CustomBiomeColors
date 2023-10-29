@@ -32,7 +32,7 @@ public class NmsServer_1_16 implements NmsServer {
         return this.biomeRegistry.a(ResourceKey.a(
                 IRegistry.ay,
                 new MinecraftKey(biomeKey.key, biomeKey.value)
-        )) == null;
+        )) != null;
     }
 
     @Override
@@ -119,6 +119,14 @@ public class NmsServer_1_16 implements NmsServer {
     @Override
     public void registerBiome(Object biomeBase, Object biomeMinecraftKey) {
         this.biomeRegistry.a((ResourceKey<BiomeBase>) biomeMinecraftKey, (BiomeBase) biomeBase, Lifecycle.stable());
+    }
+
+    @Override
+    public String getBiomeString(NmsBiome nmsBiome) {
+        MinecraftKey minecraftKey = this.biomeRegistry.getKey((BiomeBase) nmsBiome.getBiomeBase());
+        if(minecraftKey != null)
+            return minecraftKey.toString();
+        return "minecraft:forest";
     }
 
 }

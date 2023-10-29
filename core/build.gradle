@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'me.arthed'
-version = '1.0.1'
+version = '1.2.1'
 
 repositories {
     mavenCentral()
@@ -20,8 +20,11 @@ dependencies {
     implementation project(':1_16')
     implementation project(':1_17')
     implementation project(':1_18')
+    implementation project(':1_19')
+    implementation project(':1_20')
+    implementation project(':1_20_2')
     compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
-    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT'
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
 }
 
 task prepareKotlinBuildScriptModel {

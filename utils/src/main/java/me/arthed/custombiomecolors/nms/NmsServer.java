@@ -20,4 +20,6 @@ public interface NmsServer {
 
     void registerBiome(Object biomeBase, Object biomeMinecraftKey);
 
+    String getBiomeString(NmsBiome nmsBiome);
+
 }
