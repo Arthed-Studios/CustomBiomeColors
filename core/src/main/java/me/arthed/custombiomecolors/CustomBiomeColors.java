@@ -57,8 +57,10 @@ public final class CustomBiomeColors extends JavaPlugin {
             this.nmsServer = new NmsServer_1_18();
         } else if(Bukkit.getVersion().contains("1.19")) {
             this.nmsServer = new NmsServer_1_19();
-        } else if(Bukkit.getVersion().contains("1.20")) {
+        } else if(Bukkit.getVersion().contains("1.20.1")) {
             this.nmsServer = new NmsServer_1_20();
+        } else if(Bukkit.getVersion().contains("1.20.2")) {
+            this.nmsServer = new NmsServer_1_20_2();
         } else {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&l[CustomBiomeColors] This plugin works only on 1.16 and higher versions."));
             Bukkit.getPluginManager().disablePlugin(this);
