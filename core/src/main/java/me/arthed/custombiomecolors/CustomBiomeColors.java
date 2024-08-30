@@ -78,13 +78,13 @@ public final class CustomBiomeColors extends JavaPlugin {
         this.biomeManager = new BiomeManager();
         this.worldEditHandler = new WorldEditHandler();
 
-        Objects.requireNonNull(this.getCommand("/setgrasscolor")).setExecutor(new SetBiomeColorCommand("/setgrasscolor", BiomeColorType.GRASS));
-        Objects.requireNonNull(this.getCommand("/setfoliagecolor")).setExecutor(new SetBiomeColorCommand("/setfoliagecolor", BiomeColorType.FOLIAGE));
-        Objects.requireNonNull(this.getCommand("/setwatercolor")).setExecutor(new SetBiomeColorCommand("/setwatercolor", BiomeColorType.WATER));
-        Objects.requireNonNull(this.getCommand("/setwaterfogcolor")).setExecutor(new SetBiomeColorCommand("/setwaterfogcolor", BiomeColorType.WATER_FOG));
-        Objects.requireNonNull(this.getCommand("/setskycolor")).setExecutor(new SetBiomeColorCommand("/setskycolor", BiomeColorType.SKY));
-        Objects.requireNonNull(this.getCommand("/setfogcolor")).setExecutor(new SetBiomeColorCommand("/setfogcolor", BiomeColorType.FOG));
-        Objects.requireNonNull(this.getCommand("/getbiomecolors")).setExecutor(new GetBiomeColorsCommand());
+        Objects.requireNonNull(this.getCommand("setgrasscolor")).setExecutor(new SetBiomeColorCommand("setgrasscolor", BiomeColorType.GRASS));
+        Objects.requireNonNull(this.getCommand("setfoliagecolor")).setExecutor(new SetBiomeColorCommand("setfoliagecolor", BiomeColorType.FOLIAGE));
+        Objects.requireNonNull(this.getCommand("setwatercolor")).setExecutor(new SetBiomeColorCommand("setwatercolor", BiomeColorType.WATER));
+        Objects.requireNonNull(this.getCommand("setwaterfogcolor")).setExecutor(new SetBiomeColorCommand("setwaterfogcolor", BiomeColorType.WATER_FOG));
+        Objects.requireNonNull(this.getCommand("setskycolor")).setExecutor(new SetBiomeColorCommand("setskycolor", BiomeColorType.SKY));
+        Objects.requireNonNull(this.getCommand("setfogcolor")).setExecutor(new SetBiomeColorCommand("setfogcolor", BiomeColorType.FOG));
+        Objects.requireNonNull(this.getCommand("getbiomecolors")).setExecutor(new GetBiomeColorsCommand());
 
         new Updater(this, 95858);
 
